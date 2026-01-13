@@ -12,6 +12,7 @@ networks:
 
 services:
   hadoop-master:
+    entrypoint: bash /root/start-hadoop.sh
     build:
       context: .
     image: kiwenlau/hadoop:1.0

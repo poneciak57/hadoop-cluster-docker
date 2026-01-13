@@ -26,12 +26,7 @@ docker compose up -d --build
 ```
 easy so far
 
-### 3. start master node
-```bash
-docker exec -it hadoop-master bash /root/start-hadoop.sh
-```
-
-### 4. Access Hadoop Master Web UI
+### 3. Access Hadoop Master Web UI
 Open your web browser and navigate to `http://localhost:50070` to access the Hadoop NameNode Web UI.
 
 ### Voila :)
@@ -40,7 +35,7 @@ Open your web browser and navigate to `http://localhost:50070` to access the Had
 I modified resizing script so you can just run
 ```bash
 ./resize-cluster.sh <number_of_slaves>
-docker compose up -d --build
+docker compose up -d
 ```
 and it will resize the cluster to the desired number of slaves.
 I think it should work fine for sure you don't need to rebuild the images again unless you change something in the Dockerfile or config files (besides slaves file as it is mounted as volume).
