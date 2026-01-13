@@ -28,12 +28,12 @@ easy so far
 
 ### 3. start master node
 ```bash
-docker exec -it hadop-master bash /root/start-master.sh
+docker exec -it hadoop-master bash /root/start-master.sh
 ```
 
 ### 4. start slave nodes
 ```bash
-docker exec -it hadop-master bash /root/start-slaves.sh
+docker exec -it hadoop-master bash /root/start-slaves.sh
 ```
 
 ### 5. Access Hadoop Master Web UI
