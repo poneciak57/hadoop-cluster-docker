@@ -20,8 +20,9 @@ do
 	
 	# Add slave to docker-compose.slaves.yaml
 	echo "  hadoop-slave$i:" >> docker-compose.slaves.yaml
-	echo "    image:" >> docker-compose.slaves.yaml
-  echo "      build: ." >> docker-compose.slaves.yaml
+	echo "    build:" >> docker-compose.slaves.yaml
+  echo "      context: ." >> docker-compose.slaves.yaml
+	echo "    image: kiwenlau/hadoop:1.0" >> docker-compose.slaves.yaml
 	echo "    container_name: hadoop-slave$i" >> docker-compose.slaves.yaml
 	echo "    hostname: hadoop-slave$i" >> docker-compose.slaves.yaml
 	echo "    networks:" >> docker-compose.slaves.yaml
