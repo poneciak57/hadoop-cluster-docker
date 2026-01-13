@@ -1,0 +1,33 @@
+services:
+  hadoop-slave1:
+    image:
+      build:
+        context: .
+    container_name: hadoop-slave1
+    hostname: hadoop-slave1
+    networks:
+      - hadoop
+    tty: true
+    stdin_open: true
+
+  hadoop-slave2:
+    image:
+      build:
+        context: .
+    container_name: hadoop-slave2
+    hostname: hadoop-slave2
+    networks:
+      - hadoop
+    tty: true
+    stdin_open: true
+
+  hadoop-slave3:
+    image:
+      build:
+        context: .
+    container_name: hadoop-slave3
+    hostname: hadoop-slave3
+    networks:
+      - hadoop
+    tty: true
+    stdin_open: true

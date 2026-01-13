@@ -12,17 +12,27 @@ fi
 # change slaves file
 i=1
 rm config/slaves
+echo "services:" > docker-compose.slaves.yaml
+
 while [ $i -lt $N ]
 do
 	echo "hadoop-slave$i" >> config/slaves
+	
+	# Add slave to docker-compose.slaves.yaml
+	echo "  hadoop-slave$i:" >> docker-compose.slaves.yaml
+	echo "    image:" >> docker-compose.slaves.yaml
+  echo "      build: ." >> docker-compose.slaves.yaml
+	echo "    container_name: hadoop-slave$i" >> docker-compose.slaves.yaml
+	echo "    hostname: hadoop-slave$i" >> docker-compose.slaves.yaml
+	echo "    networks:" >> docker-compose.slaves.yaml
+	echo "      - hadoop" >> docker-compose.slaves.yaml
+	echo "    tty: true" >> docker-compose.slaves.yaml
+	echo "    stdin_open: true" >> docker-compose.slaves.yaml
+	
 	((i++))
 done 
 
 echo ""
 
-echo -e "\nbuild docker hadoop image\n"
+echo "Cluster resized. Run 'docker compose up -d' to start the new containers."
 
-# rebuild kiwenlau/hadoop image
-sudo docker build -t kiwenlau/hadoop:1.0 .
-
-echo ""

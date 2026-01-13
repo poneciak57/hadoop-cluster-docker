@@ -1,4 +1,4 @@
-## Run Hadoop Cluster within Docker Containers
+## Run Hadoop Cluster within Docker Containers (fork explanation)
 
 - Blog: [Run Hadoop Cluster in Docker Update](http://kiwenlau.com/2016/06/26/hadoop-cluster-docker-update-english/)
 - 博客: [基于Docker搭建Hadoop集群之升级版](http://kiwenlau.com/2016/06/12/160612-hadoop-cluster-docker-update/)
@@ -6,95 +6,46 @@
 
 ![alt tag](https://raw.githubusercontent.com/kiwenlau/hadoop-cluster-docker/master/hadoop-cluster-docker.png)
 
+## Docker
+Install docker desktop use desktop app if you have never worked with docker as it is very easy.
+If you want to connect to terminal of some container just click on the working container name and then click 'exec' tab;
 
-### 3 Nodes Hadoop Cluster
+## Explanation
+Ok so first things first i don't know the author but my professor might know the author of the original repository and i really could not care less. I am supposed to use this and it might have worked in the past or on different machine but i required some changes and just sharing this to my colleagues so they can use it too.
 
-##### 1. pull docker image
+Really apprieciate the work of the author as docker is designed for such a thing :heart:
 
+## How to run
+
+### 1. Clone this repo
+obviously
+
+### 2. Run docker-compose
+```bash
+docker compose up -d --build
 ```
-sudo docker pull kiwenlau/hadoop:1.0
-```
+easy so far
 
-##### 2. clone github repository
-
-```
-git clone https://github.com/kiwenlau/hadoop-cluster-docker
-```
-
-##### 3. create hadoop network
-
-```
-sudo docker network create --driver=bridge hadoop
-```
-
-##### 4. start container
-
-```
-cd hadoop-cluster-docker
-sudo ./start-container.sh
+### 3. start master node
+```bash
+docker exec -it hadop-master bash /root/start-master.sh
 ```
 
-**output:**
-
-```
-start hadoop-master container...
-start hadoop-slave1 container...
-start hadoop-slave2 container...
-root@hadoop-master:~# 
-```
-- start 3 containers with 1 master and 2 slaves
-- you will get into the /root directory of hadoop-master container
-
-##### 5. start hadoop
-
-```
-./start-hadoop.sh
+### 4. start slave nodes
+```bash
+docker exec -it hadop-master bash /root/start-slaves.sh
 ```
 
-##### 6. run wordcount
+### 5. Access Hadoop Master Web UI
+Open your web browser and navigate to `http://localhost:50070` to access the Hadoop NameNode Web UI.
 
+### Voila :)
+
+## Resizing
+I modified resizing script so you can just run
+```bash
+./resize-cluster.sh <number_of_slaves>
+docker compose up -d --build
 ```
-./run-wordcount.sh
-```
-
-**output**
-
-```
-input file1.txt:
-Hello Hadoop
-
-input file2.txt:
-Hello Docker
-
-wordcount output:
-Docker    1
-Hadoop    1
-Hello    2
-```
-
-### Arbitrary size Hadoop cluster
-
-##### 1. pull docker images and clone github repository
-
-do 1~3 like section A
-
-##### 2. rebuild docker image
-
-```
-sudo ./resize-cluster.sh 5
-```
-- specify parameter > 1: 2, 3..
-- this script just rebuild hadoop image with different **slaves** file, which pecifies the name of all slave nodes
-
-
-##### 3. start container
-
-```
-sudo ./start-container.sh 5
-```
-- use the same parameter as the step 2
-
-##### 4. run hadoop cluster 
-
-do 5~6 like section A
-
+and it will resize the cluster to the desired number of slaves.
+I think it should work fine for sure you don't need to rebuild the images again unless you change something in the Dockerfile or config files (besides slaves file as it is mounted as volume).
