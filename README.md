@@ -28,15 +28,10 @@ easy so far
 
 ### 3. start master node
 ```bash
-docker exec -it hadoop-master bash /root/start-master.sh
+docker exec -it hadoop-master bash /root/start-hadoop.sh
 ```
 
-### 4. start slave nodes
-```bash
-docker exec -it hadoop-master bash /root/start-slaves.sh
-```
-
-### 5. Access Hadoop Master Web UI
+### 4. Access Hadoop Master Web UI
 Open your web browser and navigate to `http://localhost:50070` to access the Hadoop NameNode Web UI.
 
 ### Voila :)
